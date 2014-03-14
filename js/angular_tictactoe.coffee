@@ -48,11 +48,31 @@ game.ticTacToe.controller 'gameController', [ "$scope",
               marker: "X"
               img_url: "img/ernie.jpg"
               indicator: "current"
+              tilesSelected: []
             , 
               name: "Bert"
               marker: "O"
               img_url: "img/bert.jpg"
               indicator: null
+              tilesSelected: []
+    ]
+
+    $scope.winCombos = [
+        [0,1,2]
+      ,
+        [3,4,5]
+      ,
+        [6,7,8]
+      ,
+        [0,3,6]
+      ,
+        [1,4,7]
+      ,
+        [2,5,8]
+      ,
+        [0,4,8]
+      ,
+        [2,4,6]
     ]
 
     $scope.currentPlayer = $scope.players[0]
@@ -67,10 +87,22 @@ game.ticTacToe.controller 'gameController', [ "$scope",
 
       $scope.currentPlayer.indicator = "current"
       return
+
+    $scope.isWin = (tiles) ->
+      for combo in $scope.winCombos
+        if tiles.indexOf(combo[0]) >= 0 and tiles.indexOf(combo[1]) >= 0 and tiles.indexOf(combo[2]) >= 0
+          return true
+      return false
     
     $scope.selectTile = (tile) ->
-      tile.img_url = $scope.currentPlayer.img_url
-      $scope.changeCurrentPlayer()
+      if not tile.clicked
+        tile.clicked = true
+        $scope.currentPlayer.tilesSelected.push tile.position
+        tile.img_url = $scope.currentPlayer.img_url
+        if $scope.isWin($scope.currentPlayer.tilesSelected)
+          alert($scope.changeCurrentPlayer.name + " wins")
+        $scope.changeCurrentPlayer()
+
 
     return
 ]

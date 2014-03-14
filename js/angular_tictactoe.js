@@ -51,14 +51,17 @@ game.ticTacToe.controller('gameController', [
         name: "Ernie",
         marker: "X",
         img_url: "img/ernie.jpg",
-        indicator: "current"
+        indicator: "current",
+        tilesSelected: []
       }, {
         name: "Bert",
         marker: "O",
         img_url: "img/bert.jpg",
-        indicator: null
+        indicator: null,
+        tilesSelected: []
       }
     ];
+    $scope.winCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
     $scope.currentPlayer = $scope.players[0];
     $scope.changeCurrentPlayer = function() {
       $scope.currentPlayer.indicator = null;
@@ -69,9 +72,27 @@ game.ticTacToe.controller('gameController', [
       }
       $scope.currentPlayer.indicator = "current";
     };
+    $scope.isWin = function(tiles) {
+      var combo, _i, _len, _ref;
+      _ref = $scope.winCombos;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        combo = _ref[_i];
+        if (tiles.indexOf(combo[0]) >= 0 && tiles.indexOf(combo[1]) >= 0 && tiles.indexOf(combo[2]) >= 0) {
+          return true;
+        }
+      }
+      return false;
+    };
     $scope.selectTile = function(tile) {
-      tile.img_url = $scope.currentPlayer.img_url;
-      return $scope.changeCurrentPlayer();
+      if (!tile.clicked) {
+        tile.clicked = true;
+        $scope.currentPlayer.tilesSelected.push(tile.position);
+        tile.img_url = $scope.currentPlayer.img_url;
+        if ($scope.isWin($scope.currentPlayer.tilesSelected)) {
+          alert($scope.changeCurrentPlayer.name + " wins");
+        }
+        return $scope.changeCurrentPlayer();
+      }
     };
   }
 ]);
