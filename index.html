@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="ticTacToe">
   <head>
     <title>TIC TAC TOE</title>
     <link rel="stylesheet" type="text/css" href="css/reset.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="vendor/angular-1.2.14/angular.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/tictactoe.js"></script>
+    <script src="js/angular_tictactoe.js"></script>
   </head>
-  <body>
+  <body ng-controller="gameController">
 
      <div id="game">
        <ul id="teams">
@@ -29,10 +34,6 @@
       </div>
     </div>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  <script src="js/underscore.min.js"></script>
-  <script src="js/tictactoe.js"></script>
-  <script src="js/angular_tictactoe.js"></script>
   </body>
 </html>
 

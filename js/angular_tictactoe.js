@@ -4,3 +4,7 @@ var game;
 game = game || {};
 
 game.ticTacToe = angular.module('ticTacToe', []);
+
+game.ticTacToe.controller('gameController', function($scope) {
+  $scope.board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+});
