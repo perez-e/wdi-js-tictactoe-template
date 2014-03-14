@@ -5,7 +5,43 @@ game.ticTacToe = angular.module 'ticTacToe', []
 
 game.ticTacToe.controller 'gameController', [ "$scope",
   ($scope) ->
-    $scope.board = [0..8]
+    $scope.board = [
+              position: 0
+              clicked: false
+              img_url: null
+            , 
+              position: 1
+              clicked: false
+              img_url: null
+            , 
+              position: 2
+              clicked: false
+              img_url: null
+            , 
+              position: 3
+              clicked: false
+              img_url: null
+            , 
+              position: 4
+              clicked: false
+              img_url: null
+            , 
+              position: 5
+              clicked: false
+              img_url: null
+            , 
+              position: 6
+              clicked: false
+              img_url: null
+            , 
+              position: 7
+              clicked: false
+              img_url: null
+            , 
+              position: 8
+              clicked: false
+              img_url: null
+    ]
 
     $scope.players = [
               name: "Ernie"
@@ -28,12 +64,12 @@ game.ticTacToe.controller 'gameController', [ "$scope",
         $scope.currentPlayer = $scope.players[1]
       else
         $scope.currentPlayer = $scope.players[0]
-      
+
       $scope.currentPlayer.indicator = "current"
       return
     
     $scope.selectTile = (tile) ->
-      alert("Tile #"+ tile + " was clicked")
+      tile.img_url = $scope.currentPlayer.img_url
       $scope.changeCurrentPlayer()
 
     return
