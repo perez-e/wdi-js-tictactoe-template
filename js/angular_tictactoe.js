@@ -5,9 +5,35 @@ game = game || {};
 
 game.ticTacToe = angular.module('ticTacToe', []);
 
-game.ticTacToe.controller('gameController', function($scope) {
-  $scope.board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  $scope.selectTile = function(tile) {
-    return alert("Tile #" + tile + " was clicked");
-  };
-});
+game.ticTacToe.controller('gameController', [
+  "$scope", function($scope) {
+    $scope.board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    $scope.players = [
+      {
+        name: "Ernie",
+        marker: "X",
+        img_url: "img/ernie.jpg",
+        indicator: "current"
+      }, {
+        name: "Bert",
+        marker: "O",
+        img_url: "img/bert.jpg",
+        indicator: null
+      }
+    ];
+    $scope.currentPlayer = $scope.players[0];
+    $scope.changeCurrentPlayer = function() {
+      $scope.currentPlayer.indicator = null;
+      if ($scope.currentPlayer === $scope.players[0]) {
+        $scope.currentPlayer = $scope.players[1];
+      } else {
+        $scope.currentPlayer = $scope.players[0];
+      }
+      $scope.currentPlayer.indicator = "current";
+    };
+    $scope.selectTile = function(tile) {
+      alert("Tile #" + tile + " was clicked");
+      return $scope.changeCurrentPlayer();
+    };
+  }
+]);
