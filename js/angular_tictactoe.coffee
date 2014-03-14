@@ -6,4 +6,8 @@ game.ticTacToe = angular.module 'ticTacToe', []
 game.ticTacToe.controller 'gameController',
   ($scope) ->
     $scope.board = [0..8]
-    return 
+    
+    $scope.selectTile = (tile) ->
+      alert("Tile #"+ tile + " was clicked")
+
+    return

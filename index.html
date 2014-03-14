@@ -11,7 +11,6 @@
     <script src="js/angular_tictactoe.js"></script>
   </head>
   <body ng-controller="gameController">
-
      <div id="game">
        <ul id="teams">
         <li>
@@ -26,6 +25,9 @@
         </li>
       </ul>
       <div id="board">
+        <div ng-repeat="tile in board">
+          <div id="tile{{tile}}" class="tile" ng-click="selectTile(tile)"></div>
+        </div>
       </div>
       <div id="results">
         <h1></h1>

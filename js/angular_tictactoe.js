@@ -7,4 +7,7 @@ game.ticTacToe = angular.module('ticTacToe', []);
 
 game.ticTacToe.controller('gameController', function($scope) {
   $scope.board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  $scope.selectTile = function(tile) {
+    return alert("Tile #" + tile + " was clicked");
+  };
 });
