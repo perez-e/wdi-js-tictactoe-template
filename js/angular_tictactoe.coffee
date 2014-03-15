@@ -43,6 +43,8 @@ game.ticTacToe.controller 'gameController', [ "$scope",
               img_url: null
     ]
 
+    $scope.tries = 0
+
     $scope.players = [
               name: "Ernie"
               marker: "X"
@@ -93,14 +95,24 @@ game.ticTacToe.controller 'gameController', [ "$scope",
         if tiles.indexOf(combo[0]) >= 0 and tiles.indexOf(combo[1]) >= 0 and tiles.indexOf(combo[2]) >= 0
           return true
       return false
+
+    $scope.isTie = ->
+      if $scope.tries == 9
+        return true
+      return false
     
     $scope.selectTile = (tile) ->
       if not tile.clicked
+        $scope.tries += 1
+        tile.img_url = $scope.currentPlayer.img_url
         tile.clicked = true
         $scope.currentPlayer.tilesSelected.push tile.position
-        tile.img_url = $scope.currentPlayer.img_url
+        
         if $scope.isWin($scope.currentPlayer.tilesSelected)
           alert($scope.changeCurrentPlayer.name + " wins")
+        else if $scope.isTie()
+          alert("Tie Game")
+
         $scope.changeCurrentPlayer()
 
 

@@ -46,6 +46,7 @@ game.ticTacToe.controller('gameController', [
         img_url: null
       }
     ];
+    $scope.tries = 0;
     $scope.players = [
       {
         name: "Ernie",
@@ -83,13 +84,22 @@ game.ticTacToe.controller('gameController', [
       }
       return false;
     };
+    $scope.isTie = function() {
+      if ($scope.tries === 9) {
+        return true;
+      }
+      return false;
+    };
     $scope.selectTile = function(tile) {
       if (!tile.clicked) {
+        $scope.tries += 1;
+        tile.img_url = $scope.currentPlayer.img_url;
         tile.clicked = true;
         $scope.currentPlayer.tilesSelected.push(tile.position);
-        tile.img_url = $scope.currentPlayer.img_url;
         if ($scope.isWin($scope.currentPlayer.tilesSelected)) {
           alert($scope.changeCurrentPlayer.name + " wins");
+        } else if ($scope.isTie()) {
+          alert("Tie Game");
         }
         return $scope.changeCurrentPlayer();
       }
