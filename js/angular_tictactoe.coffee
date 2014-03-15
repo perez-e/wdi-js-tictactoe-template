@@ -100,6 +100,17 @@ game.ticTacToe.controller 'gameController', [ "$scope",
       if $scope.tries == 9
         return true
       return false
+
+    $scope.newGame = ->
+      for tile in $scope.board
+        tile.clicked = false
+        tile.img_url = null
+      for player in $scope.players
+        player.indicator = null
+        player.tilesSelected = []
+      $scope.currentPlayer = $scope.players[0]
+      $scope.currentPlayer.indicator = "current"
+      return
     
     $scope.selectTile = (tile) ->
       if not tile.clicked
