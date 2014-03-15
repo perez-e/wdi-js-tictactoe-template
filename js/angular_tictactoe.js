@@ -47,6 +47,11 @@ game.ticTacToe.controller('gameController', [
       }
     ];
     $scope.tries = 0;
+    $scope.endGame = {
+      show: false,
+      message: "",
+      url: ""
+    };
     $scope.players = [
       {
         name: "Ernie",
@@ -91,21 +96,7 @@ game.ticTacToe.controller('gameController', [
       return false;
     };
     $scope.newGame = function() {
-      var player, tile, _i, _j, _len, _len1, _ref, _ref1;
-      _ref = $scope.board;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        tile = _ref[_i];
-        tile.clicked = false;
-        tile.img_url = null;
-      }
-      _ref1 = $scope.players;
-      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-        player = _ref1[_j];
-        player.indicator = null;
-        player.tilesSelected = [];
-      }
-      $scope.currentPlayer = $scope.players[0];
-      $scope.currentPlayer.indicator = "current";
+      window.location.href = window.location.href;
     };
     $scope.selectTile = function(tile) {
       if (!tile.clicked) {
@@ -114,9 +105,13 @@ game.ticTacToe.controller('gameController', [
         tile.clicked = true;
         $scope.currentPlayer.tilesSelected.push(tile.position);
         if ($scope.isWin($scope.currentPlayer.tilesSelected)) {
-          alert($scope.changeCurrentPlayer.name + " wins");
+          $scope.endGame.show = true;
+          $scope.endGame.message = $scope.currentPlayer.name + " Wins!!!";
+          $scope.endGame.url = $scope.currentPlayer.img_url;
         } else if ($scope.isTie()) {
-          alert("Tie Game");
+          $scope.endGame.show = true;
+          $scope.endGame.message = "Tie Game!";
+          $scope.endGame.url = "img/rubberduckie.jpg";
         }
         return $scope.changeCurrentPlayer();
       }

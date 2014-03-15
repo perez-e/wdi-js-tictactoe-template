@@ -44,6 +44,10 @@ game.ticTacToe.controller 'gameController', [ "$scope",
     ]
 
     $scope.tries = 0
+    $scope.endGame = 
+                show: false
+                message: ""
+                url: ""
 
     $scope.players = [
               name: "Ernie"
@@ -102,14 +106,7 @@ game.ticTacToe.controller 'gameController', [ "$scope",
       return false
 
     $scope.newGame = ->
-      for tile in $scope.board
-        tile.clicked = false
-        tile.img_url = null
-      for player in $scope.players
-        player.indicator = null
-        player.tilesSelected = []
-      $scope.currentPlayer = $scope.players[0]
-      $scope.currentPlayer.indicator = "current"
+      window.location.href = window.location.href
       return
     
     $scope.selectTile = (tile) ->
@@ -120,10 +117,14 @@ game.ticTacToe.controller 'gameController', [ "$scope",
         $scope.currentPlayer.tilesSelected.push tile.position
         
         if $scope.isWin($scope.currentPlayer.tilesSelected)
-          alert($scope.changeCurrentPlayer.name + " wins")
+          $scope.endGame.show = true
+          $scope.endGame.message = $scope.currentPlayer.name + " Wins!!!"
+          $scope.endGame.url = $scope.currentPlayer.img_url
         else if $scope.isTie()
-          alert("Tie Game")
-
+          $scope.endGame.show = true
+          $scope.endGame.message = "Tie Game!"
+          $scope.endGame.url = "img/rubberduckie.jpg"
+      
         $scope.changeCurrentPlayer()
 
 

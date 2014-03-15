@@ -1,4 +1,4 @@
-$(function() {
+git $(function() {
 
   //### 'jquery' UI elements for game manipulation
   //var game              =    // the game container
